@@ -28,6 +28,8 @@ The application uses a vibrant and modern color palette:
 - **Gray:** `#888` (used for secondary text and chart elements)
 - **Black:** `#222` (used for text and chart elements)
 
+
+
 ## Fonts
 - **Roboto** (from Google Fonts) is used for a clean, modern look.
 - **Font Awesome** is used for icons throughout the app.

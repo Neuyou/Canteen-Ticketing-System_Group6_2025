@@ -139,7 +139,10 @@
       </div>
     </div>
   </div>
+
   <!-- Modals -->
+
+
   <!-- Mark as Paid Modal -->
   <div class="modal fade" id="markPaidModal" tabindex="-1" aria-labelledby="markPaidModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -361,6 +364,7 @@
     fetch('components/header.html').then(res => res.text()).then(data => {
       document.getElementById('header-include').innerHTML = data;
     });
+    //including the footer using js, to load the footer and get the current date using .getFullYear() function
     fetch('components/footer.html').then(res => res.text()).then(data => {
       document.getElementById('footer-include').innerHTML = data;
       const yearSpan = document.getElementById('footerYear');
