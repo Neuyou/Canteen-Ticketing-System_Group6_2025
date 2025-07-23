@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PresChop Dashboard</title>
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/styles.css">
+
 </head>
+
 <body>
+
   <div id="header-include"></div>
   <div class="main-content">
     <div class="container mt-4">
+
       <!-- Notification for Canteen Manager -->
       <!-- this is the alert for the canteen boss -->
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong><i class="fa fa-bell"></i> Approval Needed!</strong> There are new workers pending approval. <a href="#" class="alert-link">Review now</a>.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+
       <!-- Inventory Low Stock Alert -->
       <!-- here is where we show if food is low -->
       <div id="stockAlertHome"></div>
       <div class="text-center mt-5">
         <h1>Welcome to PresChop</h1>
         <p class="lead">Canteen Management System Dashboard</p>
-        <img src="assets/images/logo_presschop.jpg" alt="PresChop Logo Large" class="logo-large mt-4">
+        <img src="assets/images/mockups/lowfidmockup.jpg" alt="PresChop Logo Large" class="logo-large mt-4">
+
         <!-- Week Menu Section -->
         <!-- this is the menu for the week -->
         <div class="mt-4 mb-3">
           <h3 style="color:#ff6600;">This Week's Menu</h3>
-          <table class="table table-bordered w-auto mx-auto mt-3" style="background:#fff;">
+          <table class="table table-bordered w-auto mx-auto mt-3" style="background:#fff; border: 1px solid black;">
             <tbody>
               <tr><th>Monday</th><td>Jollof Rice, Fruit Juice</td></tr>
               <tr><th>Tuesday</th><td>Fried Plantain, Chicken Stew</td></tr>
@@ -48,120 +58,15 @@
         </div>
       </div>
     </div>
-    <!-- START: Statistics Section (moved from statistics.html) -->
-    <!-- stats stuff from the other page -->
-    <div class="container mt-5">
-      <h1 class="mb-4" style="color:#ff6600;">Canteen Statistics</h1>
-      <div class="row g-4">
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-glass-martini-alt"></i> Most Popular Drinks</h5>
-              <canvas id="drinksChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-hamburger"></i> Most Popular Foods</h5>
-              <canvas id="foodsChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-calendar-week"></i> Meals Per Day</h5>
-              <canvas id="daysChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-star"></i> Menu Item Feedback</h5>
-              <canvas id="feedbackChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        
 
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-user"></i> Top 5 Workers by Consumption</h5>
-              <canvas id="workersChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-percentage"></i> Food vs. Drink Ratio</h5>
-              <canvas id="ratioChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-chart-line"></i> Avg. Feedback by Day</h5>
-              <canvas id="feedbackDayChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <!-- New Analytics -->
-        <!-- more stats here -->
-
-
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-calendar"></i> Monthly Trends</h5>
-              <canvas id="monthlyTrendsChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-calendar-times"></i> Most Avoided Days</h5>
-              <canvas id="avoidedDaysChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-trophy"></i> Top Rated Menu Items</h5>
-              <canvas id="topRatedChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title" style="color:#ff6600;"><i class="fa fa-user-check"></i> Worker Attendance Rate</h5>
-              <canvas id="attendanceChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END: Statistics Section -->
-    <!-- stats part ends here -->
-  </div>
   <div id="footer-include"></div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
+
     // Inventory Low Stock Alert (static example)
     const lowStockItems = [
       { name: 'Milk', status: 'Low', color: 'warning' },
@@ -173,173 +78,18 @@
         lowStockItems.map(item => `${item.name} (<span class='text-${item.color}'>${item.status}</span>)`).join(', ') +
         `</div>`;
     }
-    // Mini preview chart for meals per day
-    new Chart(document.getElementById('miniDaysChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Meals',
-          data: [60, 55, 40, 30, 70, 80, 20],
-          backgroundColor: '#ff6600'
-        }]
-      },
-      options: {responsive:true, plugins:{legend:{display:false}}, scales:{y:{display:false}}}
-    });
 
-    // Statistics charts from statistics.html
-    const chartColors = ['#ff6600', '#222', '#ffc107', '#ffb380', '#888', '#fff'];
-    new Chart(document.getElementById('drinksChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Fruit Juice', 'Zobo', 'Pap', 'Water', 'Tea'],
-        datasets: [{
-          label: 'Drinks Bought',
-          data: [120, 90, 60, 40, 30],
-          backgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4]]
-        }]
-      },
-      options: {responsive:true, plugins:{legend:{display:false}}}
-    });
-    new Chart(document.getElementById('foodsChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Jollof Rice', 'Beans', 'Yam Porridge', 'Okra Soup', 'Fried Plantain'],
-        datasets: [{
-          label: 'Foods Bought',
-          data: [150, 110, 80, 60, 50],
-          backgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4]]
-        }]
-      },
-      options: {responsive:true, plugins:{legend:{display:false}}}
-    });
-    new Chart(document.getElementById('daysChart'), {
-      type: 'line',
-      data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        datasets: [{
-          label: 'Meals Consumed',
-          data: [60, 55, 40, 30, 70, 80, 20],
-          borderColor: chartColors[0],
-          backgroundColor: 'rgba(255,102,0,0.1)',
-          pointBackgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4], chartColors[5], chartColors[2]],
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {responsive:true}
-    });
-    new Chart(document.getElementById('feedbackChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Jollof Rice', 'Beans', 'Fruit Juice', 'Okra Soup', 'Pap'],
-        datasets: [{
-          label: 'Avg. Feedback (1-5)',
-          data: [4.7, 4.2, 4.5, 3.8, 4.0],
-          backgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4]]
-        }]
-      },
-      options: {responsive:true, scales:{y:{min:0,max:5}}}
-    });
-    // New Analytics
-    new Chart(document.getElementById('workersChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Jane Doe', 'John Smith', 'Mary Ann', 'Peter Obi', 'Anonymous'],
-        datasets: [{
-          label: 'Meals Consumed',
-          data: [45, 40, 38, 35, 30],
-          backgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4]]
-        }]
-      },
-      options: {responsive:true, plugins:{legend:{display:false}}}
-    });
-    new Chart(document.getElementById('ratioChart'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Food', 'Drink'],
-        datasets: [{
-          label: 'Food vs Drink',
-          data: [320, 180],
-          backgroundColor: [chartColors[0], chartColors[1]]
-        }]
-      },
-      options: {responsive:true}
-    });
-    new Chart(document.getElementById('feedbackDayChart'), {
-      type: 'line',
-      data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        datasets: [{
-          label: 'Avg. Feedback',
-          data: [4.2, 4.0, 3.8, 4.5, 4.7, 4.3, 3.9],
-          borderColor: chartColors[0],
-          backgroundColor: 'rgba(255,102,0,0.1)',
-          pointBackgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4], chartColors[5], chartColors[2]],
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {responsive:true, scales:{y:{min:0,max:5}}}
-    });
-    // Additional Analytics
-    new Chart(document.getElementById('monthlyTrendsChart'), {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: 'Meals/Consumptions',
-          data: [300, 350, 400, 370, 420, 390],
-          borderColor: chartColors[0],
-          backgroundColor: 'rgba(255,102,0,0.1)',
-          pointBackgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1], chartColors[4], chartColors[5]],
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {responsive:true}
-    });
-    new Chart(document.getElementById('avoidedDaysChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Wednesday', 'Thursday', 'Sunday'],
-        datasets: [{
-          label: 'Meals Consumed',
-          data: [40, 30, 20],
-          backgroundColor: [chartColors[1], chartColors[0], chartColors[2]]
-        }]
-      },
-      options: {responsive:true, plugins:{legend:{display:false}}}
-    });
-    new Chart(document.getElementById('topRatedChart'), {
-      type: 'bar',
-      data: {
-        labels: ['Jollof Rice', 'Fruit Juice', 'Beans', 'Pap'],
-        datasets: [{
-          label: 'Avg. Rating',
-          data: [4.7, 4.5, 4.2, 4.0],
-          backgroundColor: [chartColors[0], chartColors[2], chartColors[3], chartColors[1]]
-        }]
-      },
-      options: {responsive:true, scales:{y:{min:0,max:5}}, plugins:{legend:{display:false}}}
-    });
-    new Chart(document.getElementById('attendanceChart'), {
-      type: 'pie',
-      data: {
-        labels: ['Regular', 'Occasional', 'Rare'],
-        datasets: [{
-          label: 'Attendance',
-          data: [60, 30, 10],
-          backgroundColor: [chartColors[0], chartColors[1], chartColors[2]]
-        }]
-      },
-      options: {responsive:true}
-    });
     // Load header and footer components dynamically
-    fetch('components/header.html').then(res => res.text()).then(data => {
+    fetch('../../components/header.html').then(res => res.text()).then(data => {
       document.getElementById('header-include').innerHTML = data;
+      const logoimg = document.querySelector('#header-include img.logo');
+      if(logoimg){
+        logoimg.src = '/assets/images/mockups/lowfidmockup.jpg';
+      }
+    
     });
-    fetch('components/footer.html').then(res => res.text()).then(data => {
+   
+    fetch('../../components/footer.html').then(res => res.text()).then(data => {
       document.getElementById('footer-include').innerHTML = data;
       const yearSpan = document.getElementById('footerYear');
       if (yearSpan) {
@@ -347,5 +97,6 @@
       }
     });
   </script>
+
 </body>
 </html> 

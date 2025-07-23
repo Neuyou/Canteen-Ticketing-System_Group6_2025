@@ -16,8 +16,8 @@ body {
 }
 
 .logo {
-  height: 40px;
-  width: 40px;
+  height: 70px;
+  width: 70px;
   object-fit: contain;
   border-radius: 50%;
   border: 2px solid #ff6600;
@@ -51,6 +51,11 @@ body {
   font-weight: 500;
 }
 
+.btn:hover:active{
+  background-color: #ff6600;
+  color: #fff;
+}
+
 .btn-close {
   filter: invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(100%) contrast(100%);
 }
@@ -58,3 +63,18 @@ body {
 h1, .lead {
   color: #ff6600;
 } 
+
+.social-icons {
+    text-align: center;       /* Center all the icons */
+    margin-top: 10px; 
+}
+.social-icons img {  
+    margin: 0 10px;          /* Spacing between icons */
+    width: 40px;            /* Control icon size */
+    height: auto;
+    vertical-align: middle;
+    transition: transform 0.3s;   
+}
+.social-icons img:hover {
+    transform: scale(1.1); /* Hover effect */
+}
