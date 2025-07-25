@@ -1,3 +1,13 @@
+/* *{
+  background-image: url(../images/plat8.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.guilaine{
+  background: rgba(255, 255, 255, 0.6) !important;
+} */
+
 body {
   font-family: 'Roboto', Arial, sans-serif;
   background: #fff;
@@ -77,4 +87,8 @@ h1, .lead {
 }
 .social-icons img:hover {
     transform: scale(1.1); /* Hover effect */
+}
+
+.flexgrownone {
+  flex-grow: 0;
 }

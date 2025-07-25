@@ -6,14 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Worker Debts - PresChop</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/all.min.css" rel="stylesheet">
+  <link href="../fonts/googeRobotofonts.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
 
   <style>
@@ -57,21 +53,21 @@
 
       <!-- Notification for Canteen Manager -->
       <!-- this is the alert for the canteen boss -->
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong><i class="fa fa-bell"></i> Approval Needed!</strong> There are new workers pending approval. <a href="#" class="alert-link">Review now</a>.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+      </div> -->
       <div class="card mt-5">
         <div class="card-body">
           <h2 class="card-title text-center mb-4" style="color:#ff6600;"><i class="fa fa-list"></i> Worker Debts</h2>
 
-          <!-- Export Buttons -->
+          
           <div class="mb-3 d-flex flex-wrap gap-2">
             <button type="button" class="btn" id="exportCSV" style="background:#ff6600; color:#fff; border:none;"><i class="fa fa-file-csv"></i> Export as CSV</button>
             <button type="button" class="btn" id="exportExcel" style="background:#ff6600; color:#fff; border:none;"><i class="fa fa-file-excel"></i> Export as Excel</button>
           </div>
 
-          <!-- Filters -->
+          
           <form id="filterForm" class="row g-2 mb-4 align-items-end">
             <div class="col-12 col-sm-3">
               <label class="form-label mb-1">Worker Name</label>
@@ -84,7 +80,21 @@
                 <option value="">All</option>
                 <option value="Food">Food</option>
                 <option value="Drink">Drink</option>
+                <option value="Food and Drink">Food and Drink</option>
               </select>
+            </div>
+
+             <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Department</label>
+              <select class="form-select" id="filterdepartment">
+                <option value="">All</option>
+                <option value="SWE">SWE</option>
+                <option value="Accounting">Accounting</option>
+                <option value="Networking">Networking</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Transport and Logistics">Transport and Logistics</option>
+                <option value="Cyber Security">Cyber Security</option>
+              </select>            
             </div>
 
             <div class="col-6 col-sm-2">
@@ -108,7 +118,7 @@
             </div>
 
             <div class="col-12 col-sm-1 d-grid">
-              <button type="button" class="btn" id="clearFilters" style="background:#ff6600; color:#fff; border:none;">Clear</button>
+              <button type="button" class="btn" id="clearFilters" style="background:#ff6600; color:#fff; border:none;">Search</button>
             </div>
 
           </form>
@@ -116,10 +126,12 @@
             <table class="table table-bordered align-middle">
               <thead class="table-dark">
                 <tr>
+                  <th>No</th>
                   <th>Worker Name</th>
                   <th>Type</th>
                   <th>Amount</th>
                   <th>Date</th>
+                  <th>Department</th>
                   <th>Status</th>
                   <th>Debt</th>
                   <th>Actions</th>
@@ -127,33 +139,52 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>John Doe</td>
+                  <td>1</td>
+                  <td>Dyl Padaran</td>
                   <td>Food</td>
-                  <td>3</td>
+                  <td>300</td>
                   <td>2024-06-01</td>
+                  <td>SWE</td>
                   <td>Permanent</td>
-                  <td>15</td>
+                  <td>1500</td>
                   <td>
                     <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="mark-paid"><i class="fa fa-check"></i> Mark as Paid</button>
                     <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="edit"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="delete"><i class="fa fa-trash"></i> Delete</button>
+                    <!-- <button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="delete"><i class="fa fa-trash"></i> Delete</button> -->
                   </td>
                 </tr>
                 <tr>
-                  <td>Jane Smith</td>
-                  <td>Drink</td>
                   <td>2</td>
+                  <td>Gillian</td>
+                  <td>Drink</td>
+                  <td>250</td>
                   <td>2024-06-02</td>
+                  <td>Accounting</td>
                   <td>Intern</td>
-                  <td>4</td>
+                  <td>400</td>
                   <td>
                     <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="mark-paid"><i class="fa fa-check"></i> Mark as Paid</button>
                     <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="edit"><i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="delete"><i class="fa fa-trash"></i> Delete</button>
+                    <!-- <button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="delete"><i class="fa fa-trash"></i> Delete</button> -->
+                  </td>
+                </tr>
+                 <tr>
+                  <td>3</td>
+                  <td>Ayuk Hillman</td>
+                  <td>Food and Drink</td>
+                  <td>1000</td>
+                  <td>2024-06-03</td>
+                  <td>Cyber Security</td>
+                  <td>Temporal</td>
+                  <td>2000</td>
+                  <td>
+                    <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="mark-paid"><i class="fa fa-check"></i> Mark as Paid</button>
+                    <button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="edit"><i class="fa fa-edit"></i> Edit</button>
+                    <!-- <button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="delete"><i class="fa fa-trash"></i> Delete</button> -->
                   </td>
                 </tr>
 
-                <!-- More rows as needed -->
+              
 
               </tbody>
             </table>
@@ -163,9 +194,7 @@
     </div>
   </div>
 
-  <!-- Modals -->
-
-  <!-- Mark as Paid Modal -->
+  
   <div class="modal fade" id="markPaidModal" tabindex="-1" aria-labelledby="markPaidModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -185,7 +214,7 @@
     </div>
   </div>
 
-  <!-- Edit Modal -->
+  
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -237,7 +266,7 @@
   </div>
 
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" style="background:#fff3e0; border-bottom:2px solid #ff6600;">
@@ -254,17 +283,17 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <!-- Alerts -->
   <div id="actionAlert" class="alert d-none position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 2000; min-width: 300px; background:#fff3e0; color:#ff6600; border:2px solid #ff6600; font-weight:500;" role="alert"></div>
 
-  <!-- JavaScript for modals and actions -->
+  
   <script>
     let currentRow = null;
 
-    // Mark as Paid
+   
     document.querySelectorAll('.action-btn[data-action="mark-paid"]').forEach(btn => {
       btn.addEventListener('click', function(e) {
         currentRow = e.target.closest('tr');
@@ -276,7 +305,7 @@
       bootstrap.Modal.getInstance(document.getElementById('markPaidModal')).hide();
     };
 
-    // Edit
+    
     document.querySelectorAll('.action-btn[data-action="edit"]').forEach(btn => {
       btn.addEventListener('click', function(e) {
         currentRow = e.target.closest('tr');
@@ -295,7 +324,7 @@
       bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
     };
 
-    // Delete
+    
     document.querySelectorAll('.action-btn[data-action="delete"]').forEach(btn => {
       btn.addEventListener('click', function(e) {
         currentRow = e.target.closest('tr');
@@ -307,7 +336,7 @@
       bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
     };
 
-    // Alert helper
+    
     function showAlert(message, type) {
       const alertDiv = document.getElementById('actionAlert');
       alertDiv.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
@@ -317,7 +346,7 @@
     }
   </script>
 
-  <!-- Filtering logic -->
+  
   <script>
     const filterForm = document.getElementById('filterForm');
     const filterName = document.getElementById('filterName');
@@ -357,11 +386,11 @@
     });
   </script>
 
-  <!-- Export logic -->
-  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  
+  <script src="../js/xlsx.full.min.js"></script>
   <script>
 
-    // Export as CSV
+    
     function exportTableToCSV(filename) {
       const rows = Array.from(tbody.rows).filter(row => row.style.display !== 'none');
       const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
@@ -382,7 +411,7 @@
       exportTableToCSV('worker_debts.csv');
     };
 
-    // Export as Excel
+    
     function exportTableToExcel(filename) {
       const rows = Array.from(tbody.rows).filter(row => row.style.display !== 'none');
       const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim()).slice(0, -1); // Exclude Actions
@@ -403,8 +432,8 @@
 
   <div id="footer-include"></div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="../js/bootstrap.bundle.min.js"></script>
   <script>
 
     // Load header and footer components dynamically
@@ -438,6 +467,10 @@
         }
         if (link.textContent.includes("Menu List")) {
           link.href = "./menu-list.html";
+          console.log(link.href);
+        }
+        if (link.textContent.includes("Worker List")) {
+          link.href = "./worker-list.html";
           console.log(link.href);
         }
       });
