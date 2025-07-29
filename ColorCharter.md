@@ -7,9 +7,10 @@ The entire system will mostly composed of 3 primary colors: Orange, Black and Wh
 - **Header and Footer:** Background-color: Black;
 - **Logo:** Composed of Orange, Black and White.
 - **Application Name:** Color: Orange;
-- **Text Content:** Color: Black;
+- **Text Content:** Color: Black,orange,white;
 - **Navigation Menu Tags:** Color: White;
-- **Text in the Footer:** Color: White;
+   hover: orange;
+- **Text in the Footer:** Color: White,orange;
  ## Buttons found in the system
 - **Delete:** Background-color: Orange;
               Color: White;
@@ -21,9 +22,14 @@ The entire system will mostly composed of 3 primary colors: Orange, Black and Wh
             Color hover: Black;
 - **Worker List:** Background-color: Orange;
                    Color: White;
-                   Backgrund-color hover: White;
-                   Color hover: Black;
-- **Submit:** Background-color: Orange;
-              Color: White;
-- **Reset:** Background-color: Orange;
-             Color: White;
+                   Backgrund-color:hover: White;
+                   Color:hover: orange;
+- **Register worker:** Background-color: Orange;
+                       Color: White;
+- **Register consumption:** Background-color: Orange;
+                            Color: White;
+- **All menu list:** Background-color: Orange;
+                     Color: White;
+- **Export buttons:** Background-color: Orange;
+                      Color: White;
+                      
