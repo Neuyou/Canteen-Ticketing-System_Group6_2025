@@ -12,10 +12,14 @@ body {
   font-family: 'Roboto', Arial, sans-serif;
   background: #fff;
   color: #222;
-  background: url(../images/mockups/lowfidmockup.jpg);
+  /*background: url(../images/mockups/lowfidmockup.jpg) ;*/
   background-repeat: no-repeat;
+  background-image: url(../images/plat8.jpg);
   background-size: cover;
-  background-color: rgba(255,255,255, 0.4);
+  background-attachment: fixed;
+  /*background-size: cover;*/
+  /*background-color: rgba(255,255,255, 0.4);*/
+  /* background-attachment: fixed; */
 }
 
 .navbar {
@@ -95,4 +99,15 @@ h1, .lead {
 
 .flexgrownone {
   flex-grow: 0;
+}
+
+#footer-include {
+  /*position: relative;
+  width: 100%;
+  bottom: 0;*/
+  height: 19%;
+}
+
+#top-wrapper{
+  min-height: calc(100vh - 19%);
 }

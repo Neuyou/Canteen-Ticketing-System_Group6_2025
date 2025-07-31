@@ -9,7 +9,7 @@
   
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/all.min.css" rel="stylesheet">
-  <link href="../fonts/googeRobotofonts.css" rel="stylesheet">
+  <!--link href="../fonts/googeRobotofonts.css" rel="stylesheet"-->
   <link rel="stylesheet" href="../css/styles.css">
 
   <style>
@@ -51,12 +51,7 @@
   <div class="main-content">
     <div class="container mt-4">
 
-      <!-- Notification for Canteen Manager -->
-      <!-- this is the alert for the canteen boss -->
-      <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong><i class="fa fa-bell"></i> Approval Needed!</strong> There are new workers pending approval. <a href="#" class="alert-link">Review now</a>.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div> -->
+      
       <div class="card mt-5">
         <div class="card-body">
           <h2 class="card-title text-center mb-4" style="color:#ff6600;"><i class="fa fa-list"></i> Worker Debts</h2>
@@ -289,6 +284,7 @@
   <!-- Alerts -->
   <div id="actionAlert" class="alert d-none position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 2000; min-width: 300px; background:#fff3e0; color:#ff6600; border:2px solid #ff6600; font-weight:500;" role="alert"></div>
 
+
   
   <script>
     let currentRow = null;
@@ -331,10 +327,10 @@
         new bootstrap.Modal(document.getElementById('deleteModal')).show();
       });
     });
-    document.getElementById('confirmDelete').onclick = function() {
+    /*document.getElementById('confirmDelete').onclick = function() {
       showAlert('Record deleted!', 'danger');
       bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
-    };
+    };*/
 
     
     function showAlert(message, type) {

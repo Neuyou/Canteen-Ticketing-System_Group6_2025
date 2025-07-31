@@ -7,31 +7,86 @@
   <title>Worker List - PresChop</title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/all.min.css" rel="stylesheet">
-  <link href="../fonts/googeRobotofonts.css" rel="stylesheet">
+  <!--link href="../fonts/googeRobotofonts.css" rel="stylesheet"-->
   <link rel="stylesheet" href="../css/styles.css">
 
 </head>
 
 <body>
 
+  <div id="top-wrapper">
+
   <div id="header-include"></div>
   <div class="main-content">
-    <div class="container mt-4">
 
-      <!-- Notification for Canteen Manager -->
-      <!-- this is the alert for the canteen boss -->
-      <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong><i class="fa fa-bell"></i> Approval Needed!</strong> There are new workers pending approval. <a href="#" class="alert-link">Review now</a>.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div> -->
+   
+
+    <div class="container mt-4">
 
       <div class="card mt-5">
       <div class="card-body">
       <h1 class="card-title text-center mb-4" style="color:#ff6600; text-align: center;"><i class="fa fa-calendar"></i>Worker List</h1>
-                <div class="mb-3 d-flex flex-wrap gap-2">
+               
+      <div class="mb-3 d-flex flex-wrap gap-2">
             <button type="button" class="btn" id="exportCSV" style="background:#ff6600; color:#fff; border:none;"><i class="fa fa-file-csv"></i> Export as CSV</button>
             <button type="button" class="btn" id="exportExcel" style="background:#ff6600; color:#fff; border:none;"><i class="fa fa-file-excel"></i> Export as Excel</button>
           </div>
+
+       <form id="filterForm" class="row g-2 mb-4 align-items-end">
+            <div class="col-12 col-sm-3">
+              <label class="form-label mb-1">Worker Name</label>
+              <input type="text" class="form-control" id="filterName" placeholder="Enter name">
+            </div>
+
+            <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Type</label>
+              <select class="form-select" id="filterType">
+                <option value="">All</option>
+                <option value="Food">Food</option>
+                <option value="Drink">Drink</option>
+                <option value="Food and Drink">Food and Drink</option>
+              </select>
+            </div>
+
+             <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Department</label>
+              <select class="form-select" id="filterType">
+                <option value="">All</option>
+                <option value="IT">IT</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Communication">Communication</option>
+                <option value="Operations">Operations</option>
+              </select>            
+            </div>
+
+            <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Status</label>
+              <select class="form-select" id="filterStatus">
+                <option value="">All</option>
+                <option value="Permanent">Permanent</option>
+                <option value="Temporal">Temporal</option>
+                <option value="Intern">Intern</option>
+              </select>
+            </div>
+
+            <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Date From</label>
+              <input type="date" class="form-control" id="filterDateFrom">
+            </div>
+
+            <div class="col-6 col-sm-2">
+              <label class="form-label mb-1">Date To</label>
+              <input type="date" class="form-control" id="filterDateTo">
+            </div>
+
+            <div class="col-12 col-sm-1 d-grid">
+              <button type="button" class="btn" id="clearFilters" style="background:#ff6600; color:#fff; border:none;">Search</button>
+            </div>
+
+          </form>
+
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
           <thead class="table-dark">
@@ -84,6 +139,88 @@
   </div>
 </div>
 </div>
+
+</div>
+
+<script src="../js/xlsx.full.min.js"></script>
+  <script>
+
+     
+    const filterForm = document.getElementById('filterForm');
+    const filterName = document.getElementById('filterName');
+    const filterType = document.getElementById('filterType');
+    const filterStatus = document.getElementById('filterStatus');
+    const filterDateFrom = document.getElementById('filterDateFrom');
+    const filterDateTo = document.getElementById('filterDateTo');
+    const clearFilters = document.getElementById('clearFilters');
+    const table = document.querySelector('table');
+    const tbody = table.querySelector('tbody');
+
+    function filterRows() {
+      const nameVal = filterName.value.trim().toLowerCase();
+      const typeVal = filterType.value;
+      const statusVal = filterStatus.value;
+      const dateFromVal = filterDateFrom.value;
+      const dateToVal = filterDateTo.value;
+      Array.from(tbody.rows).forEach(row => {
+        const [name, type, , date, status] = [0,1,2,3,4].map(i => row.cells[i].textContent.trim());
+        let show = true;
+        if (nameVal && !name.toLowerCase().includes(nameVal)) show = false;
+        if (typeVal && type !== typeVal) show = false;
+        if (statusVal && status !== statusVal) show = false;
+        if (dateFromVal && date < dateFromVal) show = false;
+        if (dateToVal && date > dateToVal) show = false;
+        row.style.display = show ? '' : 'none';
+      });
+    }
+    filterForm.addEventListener('input', filterRows);
+    clearFilters.addEventListener('click', function() {
+      filterName.value = '';
+      filterType.value = '';
+      filterStatus.value = '';
+      filterDateFrom.value = '';
+      filterDateTo.value = '';
+      filterRows();
+    });
+    
+    function exportTableToCSV(filename) {
+      const rows = Array.from(tbody.rows).filter(row => row.style.display !== 'none');
+      const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+      let csv = headers.slice(0, -1).join(',') + '\n'; // Exclude Actions column
+      rows.forEach(row => {
+        const cells = Array.from(row.cells).slice(0, -1); // Exclude Actions column
+        csv += cells.map(cell => '"' + cell.textContent.replace(/"/g, '""') + '"').join(',') + '\n';
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    document.getElementById('exportCSV').onclick = function() {
+      exportTableToCSV('worker_list.csv');
+    };
+
+    
+    function exportTableToExcel(filename) {
+      const rows = Array.from(tbody.rows).filter(row => row.style.display !== 'none');
+      const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim()).slice(0, -1); // Exclude Actions
+      const data = [headers];
+      rows.forEach(row => {
+        const cells = Array.from(row.cells).slice(0, -1); // Exclude Actions
+        data.push(cells.map(cell => cell.textContent));
+      });
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'WorkerList');
+      XLSX.writeFile(wb, filename);
+    }
+    document.getElementById('exportExcel').onclick = function() {
+      exportTableToExcel('worker_list.xlsx');
+    };
+  </script>
 
   <div id="footer-include"></div>
 
