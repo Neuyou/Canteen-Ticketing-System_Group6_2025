@@ -9,7 +9,6 @@
 
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/all.min.css" rel="stylesheet">
-  <!--link href="../fonts/googeRobotofonts.css" rel="stylesheet"-->
   <link rel="stylesheet" href="../css/styles.css">
 
 </head>
@@ -42,12 +41,23 @@
             </div>
 
             <div class="mb-3">
-              <label for="type" class="form-label">Type of Consumption</label>
-              <select class="form-select" id="type" required>
-                <option value="">Select Type</option>
-                <option value="Food">Food</option>
-                <option value="Drink">Drink</option>
-                <option value="Food and Drink">Food and Drink</option>
+              <label for="type" class="form-label">Food</label>
+              <select class="form-select" id="typeOfFood" required>
+                <option value="">Select Food</option>
+                <option value="Food">Eru</option>
+                <option value="Food">Beans</option>
+                <option value="Food">Rice</option>
+              </select>
+            </div>
+
+              <div class="mb-3">
+              <label for="type" class="form-label">Drink</label>
+              <select class="form-select" id="typeOfDrink" required>
+                <option value="">Select Drink</option>
+                <option value="Drink">Water</option>
+                <option value="Drink">Fanta</option>
+                <option value="Drink">Malta</option>
+                <option value="Drink">None</option>
               </select>
             </div>
 
@@ -65,9 +75,30 @@
             </div>
 
             <div class="mb-3">
-              <label for="amount" class="form-label">Amount Consumed</label>
-              <input type="number" class="form-control" id="amount" min="0" step="1" required>
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" required>
+                <option value="">Select Status</option>
+                <option value="Permanent">Permanent</option>
+                <option value="Temporal">Temporal</option>
+                <option value="Intern">Intern</option>
+              </select>
             </div>
+
+            <div class="mb-3">
+              <label for="amountFood" class="form-label">Food Amount Consumed</label>
+              <input type="number" class="form-control" id="amountFood" min="0" step="1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="amountDrink" class="form-label">Drink Amount Consumed</label>
+              <input type="number" class="form-control" id="amountDrink" min="0" step="1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="price" min="0" step="1" required>
+            </div>
+
 
             <div class="mb-3">
               <label for="date" class="form-label">Consumption Date</label>
@@ -87,8 +118,6 @@
   <script src="../js/bootstrap.bundle.min.js"></script>
 
   <script>
-
-    
     fetch('../../components/header.html').then(res => res.text()).then(data => {
       document.getElementById('header-include').innerHTML = data;
       
@@ -155,6 +184,9 @@
 
     });
   </script>
+
+  <script src="../js/custom/db.js"></script>
+  <script src="../js/custom/register-consumption.js"></script>
 
 </body>
 </html> 

@@ -24,8 +24,7 @@
     <div class="container mt-4">
 
       
-      <!-- Inventory Low Stock Alert -->
-      <!-- here is where we show if food is low -->
+      
       <div id="stockAlertHome"></div>
       <div class="text-center mt-5">
         <!-- <h1>Welcome to PresChop</h1> -->
@@ -50,14 +49,14 @@
           <!-- <a href="assets/html/menu-dashboard.html" class="btn mt-3 me-2" style="background:#ff6600; color:#fff; border:none; font-weight:600; border-radius: 50px;"><i class="fa fa-calendar-alt"></i> Go to Menu Dashboard</a> -->
                      <div class="text-center mt-5">
         <h1 style="color:#000000;">Canteen Menu Dashboard</h1>
-        <p class="lead" style="color: #000000;">Overview of the week's/daily menu</p>
         <div class="row justify-content-center mt-4">
           <div class="col-12 col-md-6 mb-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm">  <p class="lead" style="color: #000000;">Overview of the daily menu</p>
               <div class="card-body text-center">
                 <i class="fa fa-calendar-alt fa-2x mb-2" style="color:#ff6600;"></i>
                 <h5 class="card-title">Today's Menu</h5>
                 <p class="card-text">--</p>
+                <p id="foodOfTheDay"></p>
                 <!-- <a href="assets/html/menu-list.html" class="btn mt-2" style="background:#ff6600; color:#fff; border:none; border-radius: 50px;"><i class="fa fa-calendar-check"></i> See Menu List</a> -->
               </div>
             </div>
@@ -77,11 +76,11 @@
 
   
   <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/chart.js"></script>
+  <!-- <script src="assets/js/chart.js"></script> -->
+  <script src="assets/js/custom/db.js"></script>
+  <script type="module" src="assets/js/custom/index.js"></script>
 
-  <script>
-
-    // Inventory Low Stock Alert (static example)
+    <!-- // Inventory Low Stock Alert (static example)
     //const lowStockItems = [
       //{ name: 'Milk', status: 'Low', color: 'warning' },
       //{ name: 'Sugar', status: 'Very Low', color: 'danger' }
@@ -91,26 +90,8 @@
       //alertDiv.innerHTML = `<div class='alert alert-warning'><strong><i class='fa fa-exclamation-triangle'></i> Inventory Alert:</strong> The following items are low in stock:<br> ` +
        // lowStockItems.map(item => `${item.name} (<span class='text-${item.color}'>${item.status}</span>)`).join(', ') +
        // `</div>`;
-   // }
+   // } -->
 
-    // Load header and footer components dynamically
-    fetch('../../components/header.html').then(res => res.text()).then(data => {
-      document.getElementById('header-include').innerHTML = data;
-      const logoimg = document.querySelector('#header-include img.logo');
-      if(logoimg){
-        logoimg.src = '/assets/images/mockups/lowfidmockup.jpg';
-      }
-    
-    });
-   
-    fetch('../../components/footer.html').then(res => res.text()).then(data => {
-      document.getElementById('footer-include').innerHTML = data;
-      const yearSpan = document.getElementById('footerYear');
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
-    });
-  </script>
 
 </body>
 </html> 

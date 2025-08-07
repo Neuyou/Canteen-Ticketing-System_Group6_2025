@@ -7,7 +7,6 @@
   <title>Add Menu Item - PresChop</title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/all.min.css" rel="stylesheet">
-  <!--link href="../fonts/googeRobotofonts.css" rel="stylesheet"-->
   <link rel="stylesheet" href="../css/styles.css">
 
 </head>
@@ -31,12 +30,12 @@
           <form>
             <div class="mb-3">
               <label class="form-label">Item Name</label>
-              <input type="text" class="form-control" placeholder="Enter name" required>
+              <input type="text" class="form-control" id="" placeholder="Enter name" required>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Type</label>
-              <select class="form-select" required>
+              <select class="form-select" id="type" required>
                 <option value="">Select type</option>
                 <option value="Food">Food</option>
                 <option value="Drink">Drink</option>
@@ -45,17 +44,17 @@
 
             <div class="mb-3">
               <label class="form-label">Description</label>
-              <textarea class="form-control" rows="2"></textarea>
+              <textarea class="form-control" rows="2" id="description"></textarea>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Price</label>
-              <input type="number" class="form-control" min="0" step="1" required>
+              <input type="number" class="form-control" id="price" min="0" step="1" required>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Day(s) of the Week</label>
-              <select class="form-select" multiple required>
+              <label class="form-label">Day of the Week</label>
+              <select class="form-select" id="day" multiple required>
                 <option>Monday</option>
                 <option>Tuesday</option>
                 <option>Wednesday</option>
@@ -77,76 +76,27 @@
   <div id="footer-include"></div>
 
   <script>
+      // const socialIcons = document.querySelectorAll("#footer-include .social-icons img");
+      // console.log(socialIcons);
 
-    
-    fetch('../../components/header.html').then(res => res.text()).then(data => {
-      document.getElementById('header-include').innerHTML = data;
-      
-      const navLinks = document.querySelectorAll('#header-include .nav-link');
-      navLinks.forEach(link =>{
-        if (link.textContent.includes("Dashboard")) {
-          link.href = "../../index.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Register Worker")) {
-          link.href = "./register-worker.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Register Consumption")) {
-          link.href = "./register-consumption.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Worker Debts")) {
-          link.href = "./worker-debts.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Menu")) {
-          link.href = "./menu-dashboard.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Add Menu Item")) {
-          link.href = "./menu-add.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Menu List")) {
-          link.href = "./menu-list.html";
-          console.log(link.href);
-        }
-        if (link.textContent.includes("Worker List")) {
-          link.href = "./worker-list.html";
-          console.log(link.href);
-        }
-      });
-    });
-  
-    fetch('../../components/footer.html').then(res => res.text()).then(data => {
-      document.getElementById('footer-include').innerHTML = data;
-      const yearSpan = document.getElementById('footerYear');
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
+      // const newIcons = {
+      //   facebook : '../images/fac.jpg',
+      //   instagram : '../images/int.jpg',
+      //   tiktok : '../images/tik.jpg',
+      //   twitter : '../images/twi.jpg'
+      // };
 
-      const socialIcons = document.querySelectorAll("#footer-include .social-icons img");
-      console.log(socialIcons);
-
-      const newIcons = {
-        facebook : '../images/fac.jpg',
-        instagram : '../images/int.jpg',
-        tiktok : '../images/tik.jpg',
-        twitter : '../images/twi.jpg'
-      };
-
-      socialIcons.forEach(img => {
-        const alt = img.alt?.toLowerCase();
-        if(alt && newIcons[alt]){
-          img.src = newIcons[alt];
-        }
-      });
-
-    });
+      // socialIcons.forEach(img => {
+      //   const alt = img.alt?.toLowerCase();
+      //   if(alt && newIcons[alt]){
+      //     img.src = newIcons[alt];
+      //   }
+      // });
   </script>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/custom/db.js"></script>
+  <script src="../js/custom/menu-add.js"></script>
 
 </body>
 </html> 
