@@ -147,10 +147,32 @@ document.querySelector('form').addEventListener('submit', async (event) => {
     };
 
     try {
-        await addData('consumptions', newConsumption);
-        alert('Consumption registered successfully!');
-        event.target.reset();
+        await openDatabase();
+        var tx = db.transaction(['workers'], 'readonly');
+        var store = tx.objectStore('workers');
+        var req = store.get(workername);
+        req.onsuccess = function(ev) {
+            var w = ev.target.result;
+            var isActive = true;
+            if (w && w.active === false) { isActive = false; }
+            if (!isActive) {
+                alert('This worker is inactive. Please activate the worker before registering a consumption.');
+                return;
+            }
+            addData('consumptions', newConsumption).then(function(){
+                alert('Consumption registered successfully!');
+                event.target.reset();
+            }).catch(function(error){
+                console.error('Failed to register consumption:', error);
+                alert('Failed to register consumption. Check the console for details.');
+            });
+        };
+        req.onerror = function(e){
+            console.error('Failed to verify worker status:', e);
+            alert('Failed to verify worker status.');
+        };
     } catch (error) {
-        alert('Failed to register consumption. Check the console for details.');
+        console.error('Database error:', error);
+        alert('Database error.');
     }
 });

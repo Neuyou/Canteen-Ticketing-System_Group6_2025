@@ -168,6 +168,7 @@ async function renderDebts() {
       if (totalDebt > 0) {
         var row = tableBody.insertRow();
         row.setAttribute('data-worker-id', w.id);
+        var isActive = (typeof w.active === 'undefined') ? true : !!w.active;
         var cellsHtml = '' +
           '<td>' + (rowIndex) + '</td>' +
           '<td>' + w.firstName + ' ' + w.lastName + '</td>' +
@@ -176,6 +177,7 @@ async function renderDebts() {
           '<td>' + totalDebt + '</td>' +
           '<td>' +
             '<button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="mark-paid"><i class="fa fa-check"></i> Mark as Paid</button>' +
+            '<button class="btn action-btn me-1 btn-toggle-active" data-active="' + (isActive ? 'true' : 'false') + '" style="' + (isActive ? 'background:#6c757d' : 'background:#198754') + '; color:#fff; border:none;"><i class="fa ' + (isActive ? 'fa-user-slash' : 'fa-user-check') + '"></i> ' + (isActive ? 'Deactivate' : 'Activate') + '</button>' +
             '<button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="edit"><i class="fa fa-edit"></i> Edit</button>' +
           '</td>';
         row.innerHTML = cellsHtml;
@@ -189,6 +191,36 @@ async function renderDebts() {
       markPaidBtns[k].addEventListener('click', function(e) {
         currentRow = e.target.closest('tr');
         new bootstrap.Modal(document.getElementById('markPaidModal')).show();
+      });
+    }
+
+    // Toggle Active handlers
+    var togBtns = document.querySelectorAll('.btn-toggle-active');
+    for (var t = 0; t < togBtns.length; t++) {
+      togBtns[t].addEventListener('click', function(e){
+        var btn = e.currentTarget;
+        var tr = btn.closest('tr');
+        var wid = tr ? tr.getAttribute('data-worker-id') : null;
+        if (!wid) { return; }
+        openDatabase().then(function(){
+          var tx = db.transaction(['workers'], 'readwrite');
+          var store = tx.objectStore('workers');
+          var getReq = store.get(parseInt(wid));
+          getReq.onsuccess = function(ev){
+            var w = ev.target.result;
+            if (!w) { return; }
+            var nowActive = !(w.active === false);
+            var newActive = !nowActive;
+            w.active = newActive;
+            store.put(w).onsuccess = function(){
+              // Update button state
+              btn.innerHTML = '<i class="fa ' + (newActive ? 'fa-user-slash' : 'fa-user-check') + '"></i> ' + (newActive ? 'Deactivate' : 'Activate');
+              btn.style.background = newActive ? '#6c757d' : '#198754';
+              btn.setAttribute('data-active', newActive ? 'true' : 'false');
+              showAlert(newActive ? 'Worker activated.' : 'Worker deactivated.', 'info');
+            };
+          };
+        });
       });
     }
     var editBtns = document.querySelectorAll('.action-btn[data-action="edit"]');

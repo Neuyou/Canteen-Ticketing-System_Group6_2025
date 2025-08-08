@@ -7,6 +7,20 @@ var filterDateTo = document.getElementById('filterDateTo');
 var clearFilters = document.getElementById('clearFilters');
 var table = document.querySelector('table');
 var tbody = table.querySelector('tbody');
+// State for delete confirmation modal
+var currentDeleteWorkerId = null;
+var currentDeleteRow = null;
+
+// Helper: renumber the first column after any deletion
+function renumberTableRows() {
+  if (!tbody) { return; }
+  var rows = tbody.rows;
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i] && rows[i].cells && rows[i].cells[0]) {
+      rows[i].cells[0].textContent = (i + 1);
+    }
+  }
+}
 
 function filterRows() {
   var nameVal = (filterName && filterName.value ? filterName.value : '').trim().toLowerCase();
@@ -152,6 +166,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 totalconsumed += consume.price;
               }
             });
+            // Determine active flag (default true if undefined)
+            var isActive = (typeof worker.active === 'undefined') ? true : !!worker.active;
             row.innerHTML = `
                 <td>${index + 1}</td>
                 <td>${worker.firstName} ${worker.lastName}</td>
@@ -159,11 +175,131 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${worker.department}</td>
                 <td>${worker.status}</td>
                 <td>
-                  <a class="btn btn-sm btn-primary" style="background:#ff6600; border:none;" href="./register-consumption.html?workerId=${worker.id}&name=${encodeURIComponent(worker.firstName + ' ' + worker.lastName)}&department=${encodeURIComponent(worker.department)}&status=${encodeURIComponent(worker.status)}">Register Consumption</a>
+                  <a class="btn btn-sm btn-primary btn-register" data-active="${isActive ? 'true' : 'false'}" style="background:#ff6600; border:none; opacity:${isActive ? '1' : '0.6'};" href="./register-consumption.html?workerId=${worker.id}&name=${encodeURIComponent(worker.firstName + ' ' + worker.lastName)}&department=${encodeURIComponent(worker.department)}&status=${encodeURIComponent(worker.status)}">Register Consumption</a>
+                  <button class="btn btn-sm btn-secondary btn-toggle-active" style="margin-left:6px; background:${isActive ? '#6c757d' : '#198754'}; border:none;" data-worker-id="${worker.id}" data-active="${isActive ? 'true' : 'false'}">${isActive ? 'Deactivate' : 'Activate'}</button>
+                  <button class="btn btn-sm btn-primary btn-delete-worker" style="margin-left:6px; margin-top: 2px; background:#ff6600; border:none;" data-worker-id="${worker.id}">Delete</button>
                 </td>
             `;
         });
+        // Block register for inactive workers
+        var regLinks = document.querySelectorAll('.btn-register');
+        for (var rl = 0; rl < regLinks.length; rl++) {
+          regLinks[rl].addEventListener('click', function(e){
+            var a = e.currentTarget;
+            var act = a.getAttribute('data-active');
+            if (act === 'false') {
+              e.preventDefault();
+              var resultMsgEl = document.getElementById('resultModalMessage');
+              var resultModalEl = document.getElementById('resultModal');
+              if (resultMsgEl) { resultMsgEl.textContent = 'This worker is inactive. Reactivate to register consumption.'; }
+              if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+            }
+          });
+        }
+
+        // Toggle Active handlers
+        var togBtns = document.querySelectorAll('.btn-toggle-active');
+        for (var t = 0; t < togBtns.length; t++) {
+          togBtns[t].addEventListener('click', function(evt){
+            var btn = evt.currentTarget;
+            var wid = btn.getAttribute('data-worker-id');
+            if (!wid) { return; }
+            openDatabase().then(function(){
+              var tx = db.transaction(['workers'], 'readwrite');
+              var store = tx.objectStore('workers');
+              var getReq = store.get(parseInt(wid));
+              getReq.onsuccess = function(ev){
+                var w = ev.target.result;
+                if (!w) { return; }
+                var nowActive = !(w.active === false); // default true
+                var newActive = !nowActive;
+                w.active = newActive;
+                store.put(w).onsuccess = function(){
+                  // Update UI: button label/color and register link state
+                  btn.textContent = newActive ? 'Deactivate' : 'Activate';
+                  btn.style.background = newActive ? '#6c757d' : '#198754';
+                  btn.setAttribute('data-active', newActive ? 'true' : 'false');
+                  var tr = btn.closest('tr');
+                  if (tr) {
+                    var reg = tr.querySelector('.btn-register');
+                    if (reg) {
+                      reg.setAttribute('data-active', newActive ? 'true' : 'false');
+                      reg.style.opacity = newActive ? '1' : '0.6';
+                    }
+                  }
+                  // feedback
+                  var resultMsgEl = document.getElementById('resultModalMessage');
+                  var resultModalEl = document.getElementById('resultModal');
+                  if (resultMsgEl) { resultMsgEl.textContent = newActive ? 'Worker activated.' : 'Worker deactivated.'; }
+                  if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+                };
+              };
+            });
+          });
+        }
+        // Attach delete handlers
+        var delBtns = document.querySelectorAll('.btn-delete-worker');
+        for (var b = 0; b < delBtns.length; b++) {
+          delBtns[b].addEventListener('click', function(evt) {
+            var btn = evt.currentTarget;
+            var wid = btn.getAttribute('data-worker-id');
+            if (!wid) { return; }
+            currentDeleteWorkerId = parseInt(wid);
+            currentDeleteRow = btn.closest('tr');
+            var nameCell = currentDeleteRow && currentDeleteRow.cells && currentDeleteRow.cells[1] ? currentDeleteRow.cells[1].textContent : '';
+            var msgEl = document.getElementById('deleteWorkerMessage');
+            if (msgEl) { msgEl.textContent = 'Are you sure you want to delete ' + nameCell + ' and all their consumptions?'; }
+            var modalEl = document.getElementById('deleteWorkerModal');
+            if (modalEl) { new bootstrap.Modal(modalEl).show(); }
+          });
+        }
+
+        // Confirm delete handler (attach once)
+        var confirmBtn = document.getElementById('confirmDeleteWorker');
+        if (confirmBtn && !confirmBtn._wired) {
+          confirmBtn._wired = true;
+          confirmBtn.addEventListener('click', function(){
+            var resultMsgEl = document.getElementById('resultModalMessage');
+            var resultModalEl = document.getElementById('resultModal');
+            var delModalEl = document.getElementById('deleteWorkerModal');
+            if (!currentDeleteWorkerId) { if (delModalEl) { bootstrap.Modal.getInstance(delModalEl).hide(); } return; }
+            openDatabase().then(function(){
+              var tx = db.transaction(['workers'], 'readwrite');
+              var store = tx.objectStore('workers');
+              var req = store.delete(currentDeleteWorkerId);
+              req.onsuccess = function(){
+                deleteConsumptionsByWorker(currentDeleteWorkerId).then(function(){
+                  if (currentDeleteRow && currentDeleteRow.parentNode) { currentDeleteRow.parentNode.removeChild(currentDeleteRow); }
+                  renumberTableRows();
+                  if (delModalEl) { bootstrap.Modal.getInstance(delModalEl).hide(); }
+                  if (resultMsgEl) { resultMsgEl.textContent = 'Worker deleted successfully.'; }
+                  if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+                  currentDeleteWorkerId = null; currentDeleteRow = null;
+                }).catch(function(err){
+                  console.error('Failed to delete consumptions:', err);
+                  if (delModalEl) { bootstrap.Modal.getInstance(delModalEl).hide(); }
+                  if (resultMsgEl) { resultMsgEl.textContent = 'Worker deleted, but failed to remove consumptions.'; }
+                  if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+                  currentDeleteWorkerId = null; currentDeleteRow = null;
+                });
+              };
+              req.onerror = function(e){
+                console.error('Failed to delete worker:', e);
+                if (delModalEl) { bootstrap.Modal.getInstance(delModalEl).hide(); }
+                if (resultMsgEl) { resultMsgEl.textContent = 'Failed to delete worker.'; }
+                if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+                currentDeleteWorkerId = null; currentDeleteRow = null;
+              };
+            }).catch(function(e){
+              console.error('DB open failed:', e);
+              if (delModalEl) { bootstrap.Modal.getInstance(delModalEl).hide(); }
+              if (resultMsgEl) { resultMsgEl.textContent = 'Database error.'; }
+              if (resultModalEl) { new bootstrap.Modal(resultModalEl).show(); }
+              currentDeleteWorkerId = null; currentDeleteRow = null;
+            });
+          });
+        }
     } catch (error) {
       console.error('Failed to load workers:', error);
     }
-});
+  });

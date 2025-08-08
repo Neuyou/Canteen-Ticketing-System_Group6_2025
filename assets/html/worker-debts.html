@@ -16,16 +16,17 @@
 .action-btn {
   background: #ff6600 !important;
   color: #fff !important;
-  border: none !important;
+  border: 2px solid transparent !important; /* keep constant border to avoid layout jump */
   font-weight: 500;
-  transition: background 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s; /* only color transitions */
+  box-sizing: border-box; /* ensure border does not change size */
   margin-bottom: 0;
 }
 
 .action-btn:hover, .action-btn:focus {
   background: #fff !important;
   color: #ff6600 !important;
-  border: 2px solid #ff6600 !important;
+  border-color: #ff6600 !important; /* change color, not width */
 }
 
 @media (max-width: 575.98px) {
@@ -54,7 +55,11 @@
       <div class="card mt-5">
         <div class="card-body">
           <h2 class="card-title text-center mb-4" style="color:#ff6600;"><i class="fa fa-list"></i> Worker Debts</h2>
-
+          <div class="alert alert-info py-2" role="alert" style="background:#fff3e0; border:2px solid #ff6600; color:#333;">
+            <small>
+              <strong>Note:</strong> Inactive workers cannot register new consumptions. Use the <em>Activate/Deactivate</em> button in the Actions column to change a worker's status.
+            </small>
+          </div>
           
           <div class="mb-3 d-flex flex-wrap gap-2">
             <button type="button" class="btn" id="exportCSV" style="background:#ff6600; color:#fff; border:none;"><i class="fa fa-file-csv"></i> Export as CSV</button>
