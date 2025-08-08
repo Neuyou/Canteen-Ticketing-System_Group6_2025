@@ -18,7 +18,12 @@ Use of Camel-type naming conventions
 there to handle the error like a console.error to print the error and/or other code to execute
 - **async :** It is the process of executing of multiple tasks at the same time, like for example, when clicking a button we have expecting
   an action to occur, but we want to other actions to execute when we click other buttons, however in a sychronous programming
-  behavior mode, we would need to wait for each activity/action to execute before the other one can start
+  behavior mode, we would need to wait for each activity/action to execute before the other one can start,
+  However async allows other events or processes to run at the same time.
+- **promise :** Suppose we are waiting for event which is asynchronous, the completion time or point
+  of the event or process is non-deterministic, that is difficult to estimate as we can't say its in
+  a queue like a synchronous event, so when it does arrive, what do we do? this is the concept around a
+  **promise** with **.onerror** what we do if it returns an error
 - **Navigation Menu Tags:** Color: White;
    hover: orange;
 - **Text in the Footer:** Color: White,orange;

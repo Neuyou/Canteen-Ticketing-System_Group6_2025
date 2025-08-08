@@ -102,6 +102,40 @@ function getAllData(storeName) {
 
 openDatabase();
 
+// Delete all consumptions for a given worker id
+function deleteConsumptionsByWorker(workerId) {
+    return new Promise(function(resolve, reject) {
+        try {
+            var transaction = db.transaction(['consumptions'], 'readwrite');
+            var store = transaction.objectStore('consumptions');
+            var request = store.openCursor();
+            var deletedCount = 0;
+
+            request.onsuccess = function(event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    var value = cursor.value;
+                    if (value && parseInt(value.workername) === parseInt(workerId)) {
+                        var deleteReq = cursor.delete();
+                        deleteReq.onsuccess = function() { deletedCount = deletedCount + 1; };
+                        deleteReq.onerror = function(e) { console.error('Error deleting consumption:', e.target.error); };
+                    }
+                    cursor.continue();
+                } else {
+                    resolve(deletedCount);
+                }
+            };
+
+            request.onerror = function(event) {
+                console.error('Error opening cursor for deletion:', event.target.error);
+                reject(event.target.error);
+            };
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
 
 /*const request = indexedDB.open("PresChopDB", 1);
 

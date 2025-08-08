@@ -63,24 +63,14 @@
 
           
           <form id="filterForm" class="row g-2 mb-4 align-items-end">
-            <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-4">
               <label class="form-label mb-1">Worker Name</label>
               <input type="text" class="form-control" id="filterName" placeholder="Enter name">
             </div>
 
-            <div class="col-6 col-sm-2">
-              <label class="form-label mb-1">Type</label>
-              <select class="form-select" id="filterType">
-                <option value="">All</option>
-                <option value="Food">Food</option>
-                <option value="Drink">Drink</option>
-                <option value="Food and Drink">Food and Drink</option>
-              </select>
-            </div>
-
-             <div class="col-6 col-sm-2">
+            <div class="col-6 col-sm-3">
               <label class="form-label mb-1">Department</label>
-              <select class="form-select" id="filterType">
+              <select class="form-select" id="filterDepartment">
                 <option value="">All</option>
                 <option value="IT">IT</option>
                 <option value="Marketing">Marketing</option>
@@ -88,10 +78,10 @@
                 <option value="Human Resources">Human Resources</option>
                 <option value="Communication">Communication</option>
                 <option value="Operations">Operations</option>
-              </select>            
+              </select>
             </div>
 
-            <div class="col-6 col-sm-2">
+            <div class="col-6 col-sm-3">
               <label class="form-label mb-1">Status</label>
               <select class="form-select" id="filterStatus">
                 <option value="">All</option>
@@ -101,20 +91,9 @@
               </select>
             </div>
 
-            <div class="col-6 col-sm-2">
-              <label class="form-label mb-1">Date From</label>
-              <input type="date" class="form-control" id="filterDateFrom">
-            </div>
-
-            <div class="col-6 col-sm-2">
-              <label class="form-label mb-1">Date To</label>
-              <input type="date" class="form-control" id="filterDateTo">
-            </div>
-
-            <div class="col-12 col-sm-1 d-grid">
+            <div class="col-12 col-sm-2 d-grid">
               <button type="button" class="btn" id="clearFilters" style="background:#ff6600; color:#fff; border:none;">Search</button>
             </div>
-
           </form>
           <div class="table-responsive">
             <table class="table table-bordered align-middle">
@@ -122,9 +101,6 @@
                 <tr>
                   <th>No</th>
                   <th>Worker Name</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Date</th>
                   <th>Department</th>
                   <th>Status</th>
                   <th>Debt</th>
@@ -225,18 +201,8 @@
             </div>
 
             <div class="mb-2">
-              <label class="form-label">Type</label>
-              <input type="text" class="form-control" id="editType" required>
-            </div>
-
-            <div class="mb-2">
-              <label class="form-label">Amount</label>
-              <input type="number" class="form-control" id="editAmount" required>
-            </div>
-
-            <div class="mb-2">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-control" id="editDate" required>
+              <label class="form-label">Department</label>
+              <input type="text" class="form-control" id="editDepartment" required>
             </div>
 
             <div class="mb-2">
@@ -246,7 +212,7 @@
 
             <div class="mb-2">
               <label class="form-label">Debt</label>
-              <input type="number" class="form-control" id="editDebt" required>
+              <input type="number" class="form-control" id="editDebt">
             </div>
           </form>
         </div>

@@ -31,6 +31,11 @@
           <h2 class="card-title text-center mb-4" style="color:#ff6600;"><i class="fa fa-utensils"></i> Register Consumption</h2>
           <form>
             <div class="mb-3">
+              <label for="workerSearch" class="form-label">Search Worker</label>
+              <input type="text" class="form-control" id="workerSearch" placeholder="Type worker name to filter">
+            </div>
+
+            <div class="mb-3">
               <label for="worker" class="form-label">Worker</label>
               <select class="form-select" id="worker" required>
                 <option value="">Select Worker</option>
@@ -64,7 +69,7 @@
              <div class="mb-3">
               <label for="department" class="form-label">Department</label>
               <select class="form-select" id="department" required>
-                <option value="">Select department</option>
+                <option value="">All Departments</option>
                 <option value="IT">IT</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Finance">Finance</option>
