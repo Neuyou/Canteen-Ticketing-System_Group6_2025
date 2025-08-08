@@ -8,7 +8,8 @@ Use of Camel-type naming conventions
 - **const**: type for variables I have no intention of changing its future value or am just using
   it as a placeholder for arrays that i want to loop over
 - **let**: Regular variables that want to use their value later on in functions and sometimes assign nullable
-- **?**: Conditional evaluation of a  variable whether it contains a nullable type. Can be chained together
+- **?**: Conditional evaluation of a  variable whether it contains a nullable type. Allows us to access the variable regardless
+- **??:**: used with 2 operators such that it selects the first operand if it isn't null else the second operand
 
 ## Prerequites For Javascript
 - **console.log :** To print on the browser console, open DevTools or rightclick and click inspect then select
@@ -23,29 +24,13 @@ there to handle the error like a console.error to print the error and/or other c
 - **promise :** Suppose we are waiting for event which is asynchronous, the completion time or point
   of the event or process is non-deterministic, that is difficult to estimate as we can't say its in
   a queue like a synchronous event, so when it does arrive, what do we do? this is the concept around a
-  **promise** with **.onerror** what we do if it returns an error
-- **Navigation Menu Tags:** Color: White;
-   hover: orange;
-- **Text in the Footer:** Color: White,orange;
- ## Buttons found in the system
-- **Delete:** Background-color: Orange;
-              Color: White;
-              Backgrund-color hover: White;
-              Color hover: Black;
-- **Edit:** Background-color: Orange;
-            Color: White;
-            Backgrund-color hover: White;
-            Color hover: Black;
-- **Worker List:** Background-color: Orange;
-                   Color: White;
-                   Backgrund-color:hover: White;
-                   Color:hover: orange;
-- **Register worker:** Background-color: Orange;
-                       Color: White;
-- **Register consumption:** Background-color: Orange;
-                            Color: White;
-- **All menu list:** Background-color: Orange;
-                     Color: White;
-- **Export buttons:** Background-color: Orange;
-                      Color: White;
+  **promise** with **.onerror** what we do if it returns an error. It represents a value that may not be available yet,
+  but will be resolved in the future. It is usually used as a return block for asynchronous functions
+- **await :** Used to pause the execution of an async function, until a promise is meet or fails. It can only be used
+  with async functions, if the promise is rejected, the *await* throws an error
+
+- **fetch:** it is an async function that uses await to pause execution until the fetch Promise is resolved and it returns the 
+   html components through a then statement which can be assigned to a variable;
+- **then** handles the result of an async
+
                       
