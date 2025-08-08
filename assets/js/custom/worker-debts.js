@@ -177,7 +177,7 @@ async function renderDebts() {
           '<td>' + totalDebt + '</td>' +
           '<td>' +
             '<button class="btn action-btn me-1" style="background:#ff6600; color:#fff; border:none;" data-action="mark-paid"><i class="fa fa-check"></i> Mark as Paid</button>' +
-            '<button class="btn action-btn me-1 btn-toggle-active" data-active="' + (isActive ? 'true' : 'false') + '" style="' + (isActive ? 'background:#6c757d' : 'background:#198754') + '; color:#fff; border:none;"><i class="fa ' + (isActive ? 'fa-user-slash' : 'fa-user-check') + '"></i> ' + (isActive ? 'Deactivate' : 'Activate') + '</button>' +
+            '<button class="btn action-btn me-1 btn-toggle-active" style="background:#ff6600; color:#fff; border:none;" data-active="' + (isActive ? 'true' : 'false') + '" style="' + (isActive ? 'background:#6c757d' : 'background:#198754') + '; color:#fff; border:none;"><i class="fa ' + (isActive ? 'fa-user-slash' : 'fa-user-check') + '"></i> ' + (isActive ? 'Deactivate' : 'Activate') + '</button>' +
             '<button class="btn action-btn" style="background:#ff6600; color:#fff; border:none;" data-action="edit"><i class="fa fa-edit"></i> Edit</button>' +
           '</td>';
         row.innerHTML = cellsHtml;

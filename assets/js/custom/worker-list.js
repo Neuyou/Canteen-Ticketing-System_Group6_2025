@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${worker.status}</td>
                 <td>
                   <a class="btn btn-sm btn-primary btn-register" data-active="${isActive ? 'true' : 'false'}" style="background:#ff6600; border:none; opacity:${isActive ? '1' : '0.6'};" href="./register-consumption.html?workerId=${worker.id}&name=${encodeURIComponent(worker.firstName + ' ' + worker.lastName)}&department=${encodeURIComponent(worker.department)}&status=${encodeURIComponent(worker.status)}">Register Consumption</a>
-                  <button class="btn btn-sm btn-secondary btn-toggle-active" style="margin-left:6px; background:${isActive ? '#6c757d' : '#198754'}; border:none;" data-worker-id="${worker.id}" data-active="${isActive ? 'true' : 'false'}">${isActive ? 'Deactivate' : 'Activate'}</button>
+                  <button class="btn btn-sm btn-secondary btn-toggle-active" style="margin-left:6px; background:${isActive ? '#121213ff' : '#ff6600'}; border:none;" data-worker-id="${worker.id}" data-active="${isActive ? 'true' : 'false'}">${isActive ? 'Deactivate' : 'Activate'}</button>
                   <button class="btn btn-sm btn-primary btn-delete-worker" style="margin-left:6px; margin-top: 2px; background:#ff6600; border:none;" data-worker-id="${worker.id}">Delete</button>
                 </td>
             `;

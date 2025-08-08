@@ -62,7 +62,7 @@ function renderMenuTable(filters) {
       }
     }
 
-    // Render rows
+    
     tableBody.innerHTML = '';
     for (var j = 0; j < filtered.length; j++) {
       var it = filtered[j];
@@ -75,8 +75,8 @@ function renderMenuTable(filters) {
         '<td>' + (it.price || '') + '</td>' +
         '<td>' + (it.day || '') + '</td>' +
         '<td>' +
-          '<button class="btn btn-warning btn-sm" onclick="editItem(' + it.id + ')">Edit</button> ' +
-          '<button class="btn btn-danger btn-sm" onclick="deleteItem(' + it.id + ')">Delete</button>' +
+          '<button class="btn btn-primary btn-sm" style="background:#ff6600; color:#fff; border:none;" onclick="editItem(' + it.id + ')">Edit</button> ' +
+          '<button class="btn btn-primary btn-sm" style="background:#ff6600; color:#fff; border:none;" onclick="deleteItem(' + it.id + ')">Delete</button>' +
         '</td>';
     }
   }).catch(function(error) {
@@ -84,7 +84,7 @@ function renderMenuTable(filters) {
   });
 }
 
-// Expose handlers for inline onclick
+
 window.deleteItem = function(id) {
   if (!confirm('Delete this menu item?')) return;
   openDatabase().then(function(){
