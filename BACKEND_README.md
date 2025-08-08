@@ -307,3 +307,4 @@ Notes:
 - If you change store names or keys, bump `dbVersion` and handle migrations in `onupgradeneeded`.
 - Keep data property names consistent across UI and storage code.
 - Prefer numeric `workername` for joins between `consumptions` and `workers`.
+- Please Ayuk, Guilaine, or any other team member pls read this and the backend first
