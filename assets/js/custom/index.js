@@ -28,17 +28,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         await openDatabase();
         const menuItems = await getAllData('menu');
+        console.log(menuItems);
         menuItems.forEach((item) => {
             const daylist = item.day;
-            console.log(daylist)
-            console.log(ConvertIntToDay(day))
+            // console.log(daylist)
+            // console.log(ConvertIntToDay(day))
             if(item.day == ConvertIntToDay(day)){
-            console.log(item)
-             foodOfToday.innerHTML = `
-                <p>ITEM NAME: ${item.name}</p>
-                <p>TYPE: ${item.type}</p>
-                <p>DESCRIPTION: ${item.description}</p> 
-                <p>PRICE: ${item.price}</p> 
+            //console.log(item)
+             foodOfToday.innerHTML += `
+                <td>${item.name}</td>
+                <td>${item.type}</td>
+                <td>${item.description}</td> 
+                <td>${item.price}</td> 
             `;
             }
             
